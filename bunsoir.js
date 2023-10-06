@@ -29,11 +29,30 @@ const init = () => {
           name: 'value',
           message: 'Preferred framework',
           choices: [
-            { title: '🦊 ElysiaJS', value: 'Elysia' },
-            { title: '🔥 Hono', value: 'Hono' },
-            { title: '🌐 Express', value: 'Express' },
+            { title: '🦊 ElysiaJS', value: 'elysia' },
+            { title: '🔥 Hono', value: 'hono' },
+            { title: '🌐 Express', value: 'express' },
           ],
           max: 1,
+        });
+        // ORM
+        const orm = await prompts({
+          type: 'select',
+          name: 'value',
+          message: 'Preferred ORM',
+          choices: [
+            { title: 'Drizzle ORM', value: 'drizzle' },
+            { title: 'Prisma', value: 'prisma' },
+            { title: 'None', value: null },
+          ],
+          max: 1,
+        });
+        // Docker?
+        const has_docker = await prompts({
+          type: 'confirm',
+          name: 'value',
+          message: '🐳 Include Docker?',
+          initial: true
         });
         console.log('Begin setup...')
       })
