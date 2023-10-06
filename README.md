@@ -18,12 +18,12 @@ Setup <a href="https://bun.sh">Bun</a> app with zero build configuration
 
 #### Using NPX
 
-```Bash
+```bash
 npx bunsoir my-app
 ```
 
 #### Using NPX
 
-```Bash
+```bash
 bunx bunsoir my-app
 ```
