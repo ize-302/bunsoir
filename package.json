@@ -1,0 +1,43 @@
+{
+  "name": "bunsoir",
+  "version": "0.0.1",
+  "description": "Setup Bun app with zero build configuration",
+  "author": {
+    "name": "ize-302",
+    "url": "https://github.com/ize-302",
+    "email": "adavizeozorku@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ize-302/bunsoir"
+  },
+  "bin": {
+    "bunsoir": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "bunsoir.js"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "bun-types": "latest"
+  },
+  "homepage": "https://github.com/ize-302/bunsoir",
+  "bugs": "https://github.com/ize-302/bunsoir/issues",
+  "license": "MIT",
+  "keywords": [
+    "elysia",
+    "bun",
+    "boilerplate",
+    "bunsoir"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "prompts": "^2.4.2"
+  },
+  "module": "index.js",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
