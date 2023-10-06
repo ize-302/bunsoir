@@ -22,7 +22,7 @@ Setup <a href="https://bun.sh">Bun</a> app with zero build configuration
 npx bunsoir my-app
 ```
 
-#### Using NPX
+#### Using BUNX
 
 ```bash
 bunx bunsoir my-app
