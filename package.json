@@ -1,6 +1,6 @@
 {
   "name": "bunsoir",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Setup Bun app with zero build configuration",
   "author": {
     "name": "ize-302",
