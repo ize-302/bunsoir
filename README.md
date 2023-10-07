@@ -10,8 +10,6 @@
 Setup <a href="https://bun.sh">Bun</a> app with zero build configuration
 </p>
 
-<h1 align="center">🚧 WIP!</h1>
-
 ---
 
 ## Get started
