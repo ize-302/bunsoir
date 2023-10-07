@@ -9,10 +9,12 @@ const {
 const path = require('path')
 const shell = require('shelljs');
 
+const packageJson = require('./package.json');
+
 const init = () => {
   try {
     new commander.Command()
-      .version('0.0.1')
+      .version(packageJson.version)
       .argument('<project-directory>')
       .usage(`${chalk.green('<project-directory>')} [options]`)
       .action(async (name) => {
