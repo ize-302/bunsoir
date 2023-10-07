@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-const { init } = require('./bunsoir');
+const { init } = require('./bunsoir.js');
 
 init();

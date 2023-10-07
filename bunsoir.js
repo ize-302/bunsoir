@@ -1,6 +1,13 @@
 const commander = require('commander')
 const chalk = require('chalk');
 const prompts = require('prompts');
+const {
+  initializeBunSetup,
+  frameworkSetup,
+  dockerSetup
+} = require('./helpers/utils');
+const path = require('path')
+const shell = require('shelljs');
 
 const init = () => {
   try {
@@ -16,47 +23,27 @@ const init = () => {
           initial: name,
           message: 'Project name',
         });
-        // TypeScript?
-        const has_typescript = await prompts({
-          type: 'confirm',
-          name: 'value',
-          message: 'Include TypeScript?',
-          initial: true
-        });
         // framework
         const framework = await prompts({
           type: 'select',
           name: 'value',
-          message: 'Preferred framework',
+          message: 'Select your preferred framework',
           choices: [
             { title: '🦊 ElysiaJS', value: 'elysia' },
             { title: '🔥 Hono', value: 'hono' },
-            { title: '🌐 Express', value: 'express' },
-          ],
-          max: 1,
-        });
-        // ORM
-        const orm = await prompts({
-          type: 'select',
-          name: 'value',
-          message: 'Preferred ORM',
-          choices: [
-            { title: 'Drizzle ORM', value: 'drizzle' },
-            { title: 'Prisma', value: 'prisma' },
-            { title: 'None', value: null },
+            { title: '❌ None', value: false },
           ],
           max: 1,
         });
         // Docker?
-        const has_docker = await prompts({
+        const docker = await prompts({
           type: 'confirm',
           name: 'value',
-          message: '🐳 Include Docker?',
+          message: '🐳 Do you want to include Docker?',
           initial: true
         });
-        console.log('Begin setup...')
+        createApp({ projectName: projectName.value, framework: framework.value, docker: docker.value })
       })
-      .option('--framework', 'What framework do you intend using for this project?', ['hono', 'elysia'])
       .on('--help', () => {
         console.log(
           `Only ${chalk.green('<project-directory>')} is required.`
@@ -67,6 +54,34 @@ const init = () => {
     console.log(error)
     process.exit(1);
   }
+}
+
+
+const createApp = (payload) => {
+  const { projectName, framework, docker } = payload
+  const newProjectPath = process.cwd() + '/' + projectName
+  const bunsoirRoot = path.resolve(__dirname);
+
+  // start
+  console.log('Started setup... ⏳ ')
+
+  // setup bun app
+  initializeBunSetup(bunsoirRoot, newProjectPath, projectName)
+
+  // Framework setup
+  frameworkSetup(bunsoirRoot, framework, newProjectPath)
+
+  // include docker??
+  if (docker) {
+    dockerSetup(bunsoirRoot, newProjectPath)
+  }
+
+  // commit
+  shell.exec("git add .")
+  shell.exec("git commit -m '🎉 initial commit'")
+
+  // done
+  console.log('Setup complete ✅')
 }
 
 module.exports = { init }

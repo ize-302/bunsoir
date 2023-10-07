@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  pump-api-server:
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/app
