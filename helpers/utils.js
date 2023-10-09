@@ -1,4 +1,8 @@
 const shell = require('shelljs');
+// const cliProgress = require('cli-progress');
+
+shell.config.silent = true;
+// const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.mkdir('-p', `${newProjectPath}`);
@@ -34,12 +38,19 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
   }
 }
 
-const dockerSetup = (bunsoirRoot, newProjectPath) => {
-  const dockerFiles = `${bunsoirRoot}/boilerplates/docker/`
-  // copy docker files (for some reasom, this doesnt copy .dockerignore)
-  shell.cp('-r', dockerFiles + '/*', newProjectPath);
-  // copy .dockerignore file
-  shell.cp('-r', dockerFiles + '/.dockerignore', newProjectPath)
+const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
+  if (docker) {
+    const dockerFiles = `${bunsoirRoot}/boilerplates/docker/`
+    // copy docker files (for some reasom, this doesnt copy .dockerignore)
+    shell.cp('-r', dockerFiles + '/*', newProjectPath);
+    // copy .dockerignore file
+    shell.cp('-r', dockerFiles + '/.dockerignore', newProjectPath)
+  }
 }
 
-module.exports = { initializeBunSetup, frameworkSetup, dockerSetup }
+const gitHandler = () => {
+  shell.exec("git add .")
+  shell.exec("git commit -m '🎉 initial commit'")
+}
+
+module.exports = { initializeBunSetup, frameworkSetup, dockerSetup, gitHandler }

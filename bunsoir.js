@@ -4,10 +4,10 @@ const prompts = require('prompts');
 const {
   initializeBunSetup,
   frameworkSetup,
-  dockerSetup
+  dockerSetup,
+  gitHandler
 } = require('./helpers/utils');
 const path = require('path')
-const shell = require('shelljs');
 
 const packageJson = require('./package.json');
 
@@ -74,13 +74,10 @@ const createApp = (payload) => {
   frameworkSetup(bunsoirRoot, framework, newProjectPath)
 
   // include docker??
-  if (docker) {
-    dockerSetup(bunsoirRoot, newProjectPath)
-  }
+  dockerSetup(docker, bunsoirRoot, newProjectPath)
 
-  // commit
-  shell.exec("git add .")
-  shell.exec("git commit -m '🎉 initial commit'")
+  // initial commit
+  gitHandler()
 
   // done
   console.log('Setup complete ✅')
