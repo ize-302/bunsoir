@@ -38,6 +38,14 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
   }
 }
 
+const ormSetup = () => {
+
+}
+
+const databaseSetup = () => {
+
+}
+
 const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
   if (docker) {
     const dockerFiles = `${bunsoirRoot}/boilerplates/docker/`
@@ -53,4 +61,4 @@ const gitHandler = () => {
   shell.exec("git commit -m '🎉 initial commit'")
 }
 
-module.exports = { initializeBunSetup, frameworkSetup, dockerSetup, gitHandler }
+module.exports = { initializeBunSetup, frameworkSetup, ormSetup, databaseSetup, dockerSetup, gitHandler }
