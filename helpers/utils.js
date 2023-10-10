@@ -10,6 +10,7 @@ const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.cp('-r', `${templatesPath}/bun-template/*`, newProjectPath); // copy bun-template content
   shell.cd(projectName)
   shell.exec("git init -b master")
+  shell.exec("bun install typescript -D")
   shell.cp('-r', `${templatesPath}/git/.gitignore`, newProjectPath); // copy .gitignore
   shell.exec("npm pkg set version='1.0.0'")
   shell.exec("npm pkg set description='A Bunjs app setup with Bunsoir!'")
@@ -40,17 +41,23 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
 
 const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
   const ormsTemplatePath = `${bunsoirRoot}/boilerplates/orms`
-
   if (orm === 'drizzle') {
+    shell.exec("bun install drizzle-orm")
+    shell.exec("bun install drizzle-kit -D")
     shell.mkdir('-p', `db`);
     if (database === 'postgresql') {
       shell.cp('-r', `${ormsTemplatePath}/drizzle/postgresql/*`, `${newProjectPath}/db`);
-      shell.exec("bun install drizzle-orm pg")
-      shell.exec("bun install drizzle-kit @types/pg -D")
-      shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:pg --schema=./src/db/schema.ts'")
-      shell.exec("npm pkg set scripts.migration:push='node -r esbuild-register src/db/migrate.ts'")
-      shell.exec("npm pkg set scripts.migration='bun migration:generate && bun migration:push'")
+      shell.exec("bun install pg")
+      shell.exec("bun install @types/pg -D")
+      shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:pg --schema=./db/schema.ts'")
+      shell.exec("npm pkg set scripts.migration:push='drizzle-kit push:pg --config=./db/drizzle.config.ts'")
+    } else if (database === 'mysql') {
+      shell.cp('-r', `${ormsTemplatePath}/drizzle/mysql/*`, `${newProjectPath}/db`);
+      shell.exec("bun install mysql2")
+      shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:mysql --schema=./db/schema.ts'")
+      shell.exec("npm pkg set scripts.migration:push='drizzle-kit push:mysql --config=./db/drizzle.config.ts'")
     }
+    shell.exec("npm pkg set scripts.migrate='bun migration:generate && bun migration:push'")
   }
 }
 
