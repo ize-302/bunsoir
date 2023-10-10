@@ -38,8 +38,20 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
   }
 }
 
-const ormSetup = () => {
+const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
+  const ormsTemplatePath = `${bunsoirRoot}/boilerplates/orms`
 
+  if (orm === 'drizzle') {
+    shell.mkdir('-p', `db`);
+    if (database === 'postgresql') {
+      shell.cp('-r', `${ormsTemplatePath}/drizzle/postgresql/*`, `${newProjectPath}/db`);
+      shell.exec("bun install drizzle-orm pg")
+      shell.exec("bun install drizzle-kit @types/pg -D")
+      shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:pg --schema=./src/db/schema.ts'")
+      shell.exec("npm pkg set scripts.migration:push='node -r esbuild-register src/db/migrate.ts'")
+      shell.exec("npm pkg set scripts.migration='bun migration:generate && bun migration:push'")
+    }
+  }
 }
 
 const databaseSetup = () => {

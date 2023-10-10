@@ -74,7 +74,7 @@ const createApp = (payload) => {
   frameworkSetup(bunsoirRoot, framework, newProjectPath)
 
   // ORM setup
-  ormSetup()
+  ormSetup(bunsoirRoot, orm, database, newProjectPath)
 
   // Database setup
   databaseSetup()
