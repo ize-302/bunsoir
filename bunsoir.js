@@ -1,14 +1,23 @@
 const commander = require('commander')
 const chalk = require('chalk');
-const prompts = require('prompts');
+const { readdir } = require('fs/promises');
+const path = require('path')
+
 const {
   initializeBunSetup,
   frameworkSetup,
-  dockerSetup
+  dockerSetup,
+  ormSetup,
+  databaseSetup,
+  gitHandler
 } = require('./helpers/utils');
-const path = require('path')
-const shell = require('shelljs');
-
+const {
+  projectNamePrompt,
+  frameworkPrompt,
+  ormPrompt,
+  databasePrompt,
+  dockerPrompt
+} = require('./prompts')
 const packageJson = require('./package.json');
 
 const init = () => {
@@ -18,33 +27,24 @@ const init = () => {
       .argument('<project-directory>')
       .usage(`${chalk.green('<project-directory>')} [options]`)
       .action(async (name) => {
+        // check if project already exists
+        const directories = await readdir(process.cwd())
+        const exists = directories.includes(name)
+        if (exists) {
+          console.log(`Project with name ${chalk.blue(name)} already exists`)
+          process.exit(1)
+        }
         // project name
-        const projectName = await prompts({
-          type: 'text',
-          name: 'value',
-          initial: name,
-          message: 'Project name',
-        });
+        const projectName = await projectNamePrompt(name)
         // framework
-        const framework = await prompts({
-          type: 'select',
-          name: 'value',
-          message: 'Select your preferred framework',
-          choices: [
-            { title: '🦊 ElysiaJS', value: 'elysia' },
-            { title: '🔥 Hono', value: 'hono' },
-            { title: '❌ None', value: false },
-          ],
-          max: 1,
-        });
+        const framework = await frameworkPrompt();
+        // orm
+        const orm = await ormPrompt()
+        // database
+        const database = await databasePrompt(orm.value)
         // Docker?
-        const docker = await prompts({
-          type: 'confirm',
-          name: 'value',
-          message: '🐳 Do you want to include Docker?',
-          initial: true
-        });
-        createApp({ projectName: projectName.value, framework: framework.value, docker: docker.value })
+        const docker = await dockerPrompt()
+        createApp({ projectName: projectName.value, framework: framework.value, orm: orm.value, database: database.value, docker: docker.value })
       })
       .on('--help', () => {
         console.log(
@@ -60,7 +60,7 @@ const init = () => {
 
 
 const createApp = (payload) => {
-  const { projectName, framework, docker } = payload
+  const { projectName, framework, orm, database, docker } = payload
   const newProjectPath = process.cwd() + '/' + projectName
   const bunsoirRoot = path.resolve(__dirname);
 
@@ -73,14 +73,17 @@ const createApp = (payload) => {
   // Framework setup
   frameworkSetup(bunsoirRoot, framework, newProjectPath)
 
-  // include docker??
-  if (docker) {
-    dockerSetup(bunsoirRoot, newProjectPath)
-  }
+  // ORM setup
+  ormSetup(bunsoirRoot, orm, database, newProjectPath)
 
-  // commit
-  shell.exec("git add .")
-  shell.exec("git commit -m '🎉 initial commit'")
+  // Database setup
+  databaseSetup()
+
+  // include docker??
+  dockerSetup(docker, bunsoirRoot, newProjectPath)
+
+  // initial commit
+  gitHandler()
 
   // done
   console.log('Setup complete ✅')

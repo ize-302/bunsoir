@@ -30,18 +30,14 @@ bunx bunsoir my-app
 
 #### Supported tools
 
-| Status     | Tooling    | Description                                                |
-| ---------- | ---------- | ---------------------------------------------------------- |
-| Frameworks |            |                                                            |
-| ✅         | Elysia     | Fast and friendly BunFramework                             |
-| ✅         | Hono       | A small, simple, and ultrafast web framework for the Edges |
-| ORMs       |            |                                                            |
-| ⏳         | Drizzle    | Next generation TypeScript ORM                             |
-| ⏳         | Prisma     | Next-generation Node.js and TypeScript ORM                 |
-| Databases  |            |                                                            |
-| ⏳         | PostgreSQL |                                                            |
-| ⏳         | MYSQL      |                                                            |
-| ⏳         | SQLite     |                                                            |
-| ⏳         | mongoDB    |                                                            |
-| Others     |            |                                                            |
-| ✅         | Docker     | Accelerated container application development              |
+|               |                |                 |
+| ------------- | -------------- | --------------- |
+| Frameworks    |                |                 |
+| ✅ Elysia     | ✅ Hono        |                 |
+| Drizzle ORM   |                |                 |
+| ✅ PostgreSQL | ✅ MYSQL       | ✅ SQLite       |
+| Prisma        |                |                 |
+| 🚧 PostgreSQL | 🚧 MYSQL       | 🚧 mongoDB      |
+| 🚧 SQL server | 🚧 PlanetScale | 🚧 Cockroach DB |
+| Others        |                |                 |
+| ✅ Docker     |                |                 |
