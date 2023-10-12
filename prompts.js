@@ -37,7 +37,7 @@ const ormPrompt = async () => {
     message: 'Select your preferred ORM',
     choices: [
       { title: 'Drizzle', value: 'drizzle' },
-      { title: 'Prisma', value: 'prisma' },
+      { title: '🚧 Prisma', value: 'prisma', disabled: true },
       { title: 'No ORM', value: false },
     ],
     max: 1,
