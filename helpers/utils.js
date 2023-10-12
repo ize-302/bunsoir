@@ -51,13 +51,16 @@ const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
       shell.exec("bun install @types/pg -D")
       shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:pg --schema=./db/schema.ts'")
       shell.exec("npm pkg set scripts.migration:push='drizzle-kit push:pg --config=./db/drizzle.config.ts'")
+      shell.exec("npm pkg set scripts.migrate='bun migration:generate && bun migration:push'")
     } else if (database === 'mysql') {
       shell.cp('-r', `${ormsTemplatePath}/drizzle/mysql/*`, `${newProjectPath}/db`);
       shell.exec("bun install mysql2")
       shell.exec("npm pkg set scripts.migration:generate='drizzle-kit generate:mysql --schema=./db/schema.ts'")
       shell.exec("npm pkg set scripts.migration:push='drizzle-kit push:mysql --config=./db/drizzle.config.ts'")
+      shell.exec("npm pkg set scripts.migrate='bun migration:generate && bun migration:push'")
+    } else if (database === "sqlite") {
+      shell.cp('-r', `${ormsTemplatePath}/drizzle/sqlite/*`, `${newProjectPath}/db`);
     }
-    shell.exec("npm pkg set scripts.migrate='bun migration:generate && bun migration:push'")
   }
 }
 
