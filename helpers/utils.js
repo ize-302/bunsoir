@@ -32,9 +32,6 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
     shell.cp('-r', `${templatesPath}/hono.js`, newProjectPath);
     shell.mv(`${newProjectPath}/hono.js`, `${newProjectPath}/index.ts`)
   }
-  if (!framework) {
-    shell.exec(`bun install hono`)
-  }
 }
 
 const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
