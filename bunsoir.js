@@ -8,7 +8,6 @@ const {
   frameworkSetup,
   dockerSetup,
   ormSetup,
-  databaseSetup,
   gitHandler
 } = require('./helpers/utils');
 const {
@@ -75,9 +74,6 @@ const createApp = (payload) => {
 
   // ORM setup
   ormSetup(bunsoirRoot, orm, database, newProjectPath)
-
-  // Database setup
-  databaseSetup()
 
   // include docker??
   dockerSetup(docker, bunsoirRoot, newProjectPath)

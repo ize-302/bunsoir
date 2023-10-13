@@ -44,7 +44,6 @@ const ormPrompt = async () => {
   }, { onCancel });
 }
 
-
 const databasePrompt = async (orm) => {
   let dbs = []
   if (orm === 'drizzle') {

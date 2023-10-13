@@ -1,8 +1,6 @@
 const shell = require('shelljs');
-// const cliProgress = require('cli-progress');
 
 shell.config.silent = true;
-// const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.mkdir('-p', `${newProjectPath}`);
@@ -64,10 +62,6 @@ const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
   }
 }
 
-const databaseSetup = () => {
-
-}
-
 const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
   if (docker) {
     const dockerFiles = `${bunsoirRoot}/boilerplates/docker/`
@@ -83,4 +77,4 @@ const gitHandler = () => {
   shell.exec("git commit -m '🎉 initial commit'")
 }
 
-module.exports = { initializeBunSetup, frameworkSetup, ormSetup, databaseSetup, dockerSetup, gitHandler }
+module.exports = { initializeBunSetup, frameworkSetup, ormSetup, dockerSetup, gitHandler }
