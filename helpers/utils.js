@@ -16,6 +16,7 @@ const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.exec("npm pkg set scripts.start='bun run build && bun run dist/index.js'")
   shell.exec("npm pkg set scripts.start:dev='bun --hot index.ts'")
   shell.exec("npm pkg set scripts.build='rm -rf ./dist && bun build --target=bun ./index.ts --outdir ./dist'")
+  console.log('Initial Bun app setup ✅')
 }
 
 const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
@@ -31,6 +32,9 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
     shell.rm('index.ts')
     shell.cp('-r', `${templatesPath}/hono.js`, newProjectPath);
     shell.mv(`${newProjectPath}/hono.js`, `${newProjectPath}/index.ts`)
+  }
+  if (framework) {
+    console.log(`Complete ${framework} framework setup✅`)
   }
 }
 
@@ -56,6 +60,7 @@ const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
     } else if (database === "sqlite") {
       shell.cp('-r', `${ormsTemplatePath}/drizzle/sqlite/*`, `${newProjectPath}/db`);
     }
+    console.log(`Complete ${orm} ORM setup ✅`)
   }
 }
 
@@ -66,6 +71,7 @@ const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
     shell.cp('-r', dockerFiles + '/*', newProjectPath);
     // copy .dockerignore file
     shell.cp('-r', dockerFiles + '/.dockerignore', newProjectPath)
+    console.log(`Copied docker config files ✅`)
   }
 }
 

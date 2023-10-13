@@ -82,7 +82,12 @@ const createApp = (payload) => {
   gitHandler()
 
   // done
-  console.log('Setup complete ✅')
+  console.log('Finished!!! 🎉🎉 \n')
+
+  console.log(chalk.green('Commands:'))
+  console.log(`${chalk.yellow('bun start:dev')} - development mode`)
+  console.log(`${chalk.yellow('bun run build')} - build app`)
+  console.log(`${chalk.yellow('bun start')} - build and serve build`)
 }
 
 module.exports = { init }
