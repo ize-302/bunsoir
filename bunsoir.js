@@ -43,7 +43,7 @@ const init = () => {
         const database = await databasePrompt(orm.value)
         // Docker?
         const docker = await dockerPrompt()
-        createApp({ projectName: projectName.value, framework: framework.value, orm: orm.value, database: database.value, docker: docker.value })
+        createApp({ projectName: projectName.value, framework: framework.value, orm: orm.value, database: database?.value, docker: docker.value })
       })
       .on('--help', () => {
         console.log(
