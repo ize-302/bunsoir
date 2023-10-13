@@ -1,8 +1,6 @@
 const shell = require('shelljs');
-// const cliProgress = require('cli-progress');
 
 shell.config.silent = true;
-// const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.mkdir('-p', `${newProjectPath}`);
@@ -18,6 +16,7 @@ const initializeBunSetup = (bunsoirRoot, newProjectPath, projectName) => {
   shell.exec("npm pkg set scripts.start='bun run build && bun run dist/index.js'")
   shell.exec("npm pkg set scripts.start:dev='bun --hot index.ts'")
   shell.exec("npm pkg set scripts.build='rm -rf ./dist && bun build --target=bun ./index.ts --outdir ./dist'")
+  console.log('Initial Bun app setup ✅')
 }
 
 const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
@@ -34,8 +33,8 @@ const frameworkSetup = (bunsoirRoot, framework, newProjectPath) => {
     shell.cp('-r', `${templatesPath}/hono.js`, newProjectPath);
     shell.mv(`${newProjectPath}/hono.js`, `${newProjectPath}/index.ts`)
   }
-  if (!framework) {
-    shell.exec(`bun install hono`)
+  if (framework) {
+    console.log(`Complete ${framework} framework setup✅`)
   }
 }
 
@@ -61,11 +60,8 @@ const ormSetup = (bunsoirRoot, orm, database, newProjectPath) => {
     } else if (database === "sqlite") {
       shell.cp('-r', `${ormsTemplatePath}/drizzle/sqlite/*`, `${newProjectPath}/db`);
     }
+    console.log(`Complete ${orm} ORM setup ✅`)
   }
-}
-
-const databaseSetup = () => {
-
 }
 
 const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
@@ -75,6 +71,7 @@ const dockerSetup = (docker, bunsoirRoot, newProjectPath) => {
     shell.cp('-r', dockerFiles + '/*', newProjectPath);
     // copy .dockerignore file
     shell.cp('-r', dockerFiles + '/.dockerignore', newProjectPath)
+    console.log(`Copied docker config files ✅`)
   }
 }
 
@@ -83,4 +80,4 @@ const gitHandler = () => {
   shell.exec("git commit -m '🎉 initial commit'")
 }
 
-module.exports = { initializeBunSetup, frameworkSetup, ormSetup, databaseSetup, dockerSetup, gitHandler }
+module.exports = { initializeBunSetup, frameworkSetup, ormSetup, dockerSetup, gitHandler }

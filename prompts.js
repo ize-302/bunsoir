@@ -44,31 +44,30 @@ const ormPrompt = async () => {
   }, { onCancel });
 }
 
-
 const databasePrompt = async (orm) => {
   let dbs = []
-  if (orm === 'drizzle') {
-    dbs = [
-      { title: 'PostgreSQL', value: 'postgresql' },
-      { title: 'MySQL', value: 'mysql' },
-      { title: 'SQLite', value: 'sqlite' },
-    ]
-  }
-  if (orm === 'prisma') {
-    dbs = [
-      { title: 'PostgreSQL', value: 'postgresql' },
-      { title: 'MySQL', value: 'mysql' },
-      { title: 'mongoDB', value: 'mongodb' },
-    ]
-  }
-
-  return await prompts({
+  const showDbPrompt = async () => await prompts({
     type: 'select',
     name: 'value',
     message: 'Select your preferred database',
     choices: dbs,
     max: 1,
   }, { onCancel })
+  if (orm === 'drizzle') {
+    dbs = [
+      { title: 'PostgreSQL', value: 'postgresql' },
+      { title: 'MySQL', value: 'mysql' },
+      { title: 'SQLite', value: 'sqlite' },
+    ]
+    await showDbPrompt()
+  } else if (orm === 'prisma') {
+    dbs = [
+      { title: 'PostgreSQL', value: 'postgresql' },
+      { title: 'MySQL', value: 'mysql' },
+      { title: 'mongoDB', value: 'mongodb' },
+    ]
+    await showDbPrompt()
+  }
 }
 
 const dockerPrompt = async () => {

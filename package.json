@@ -1,6 +1,6 @@
 {
   "name": "bunsoir",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Setup Bun app with zero build configuration",
   "author": {
     "name": "ize-302",
@@ -34,7 +34,6 @@
   ],
   "dependencies": {
     "chalk": "^4.1.2",
-    "cli-progress": "^3.12.0",
     "commander": "^11.0.0",
     "drizzle-orm": "^0.28.6",
     "mysql2": "^3.6.1",

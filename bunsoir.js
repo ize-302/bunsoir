@@ -8,7 +8,6 @@ const {
   frameworkSetup,
   dockerSetup,
   ormSetup,
-  databaseSetup,
   gitHandler
 } = require('./helpers/utils');
 const {
@@ -44,7 +43,7 @@ const init = () => {
         const database = await databasePrompt(orm.value)
         // Docker?
         const docker = await dockerPrompt()
-        createApp({ projectName: projectName.value, framework: framework.value, orm: orm.value, database: database.value, docker: docker.value })
+        createApp({ projectName: projectName.value, framework: framework.value, orm: orm.value, database: database?.value, docker: docker.value })
       })
       .on('--help', () => {
         console.log(
@@ -76,9 +75,6 @@ const createApp = (payload) => {
   // ORM setup
   ormSetup(bunsoirRoot, orm, database, newProjectPath)
 
-  // Database setup
-  databaseSetup()
-
   // include docker??
   dockerSetup(docker, bunsoirRoot, newProjectPath)
 
@@ -86,7 +82,12 @@ const createApp = (payload) => {
   gitHandler()
 
   // done
-  console.log('Setup complete ✅')
+  console.log('Finished!!! 🎉🎉 \n')
+
+  console.log(chalk.green('Commands:'))
+  console.log(`${chalk.yellow('bun start:dev')} - development mode`)
+  console.log(`${chalk.yellow('bun run build')} - build app`)
+  console.log(`${chalk.yellow('bun start')} - build and serve build`)
 }
 
 module.exports = { init }
