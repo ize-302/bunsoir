@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: npm install
       - id: setup-bun
         name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -26,4 +27,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx semantic-release
+        run: npx semantic-release
