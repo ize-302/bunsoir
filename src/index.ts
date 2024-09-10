@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { init } from "./bunsoir.js";
+import { init } from "./bunsoir";
 
 init();
