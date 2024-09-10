@@ -26,7 +26,6 @@
     "@types/node": "^18.16.0",
     "@types/prompts": "^2.4.9",
     "@types/shelljs": "^0.8.15",
-    "bun-plugin-dts": "^0.2.1",
     "bun-types": "latest",
     "drizzle-kit": "^0.19.13",
     "semantic-release": "^24.1.0",
@@ -48,7 +47,7 @@
     "mysql2": "^3.6.1",
     "pg": "^8.11.3",
     "prompts": "^2.4.2",
-    "shelljs": "^0.8.5"
+    "shelljs": "0.8.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
