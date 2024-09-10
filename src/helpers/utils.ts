@@ -1,4 +1,4 @@
-const shell = require("shelljs");
+import shell from "shelljs";
 
 shell.config.silent = true;
 
