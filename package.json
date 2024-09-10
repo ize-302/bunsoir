@@ -11,17 +11,26 @@
     "type": "git",
     "url": "https://github.com/ize-302/bunsoir"
   },
+  "scripts": {
+    "build": "bun run build.mjs",
+    "prepublishOnly": "bun run build"
+  },
   "bin": {
-    "bunsoir": "./index.js"
+    "bunsoir": "./dist/index.js"
   },
   "files": [
-    "index.js",
-    "bunsoir.js"
+    "dist"
   ],
   "devDependencies": {
+    "@types/bun": "^1.0.0",
     "@types/node": "^18.16.0",
+    "@types/prompts": "^2.4.9",
+    "@types/shelljs": "^0.8.15",
+    "bun-plugin-dts": "^0.2.1",
     "bun-types": "latest",
-    "drizzle-kit": "^0.19.13"
+    "drizzle-kit": "^0.19.13",
+    "semantic-release": "^24.1.0",
+    "typescript": "^5.2.2"
   },
   "homepage": "https://github.com/ize-302/bunsoir",
   "bugs": "https://github.com/ize-302/bunsoir/issues",
@@ -41,8 +50,10 @@
     "prompts": "^2.4.2",
     "shelljs": "^0.8.5"
   },
-  "module": "index.js",
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module"
 }
