@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
       - id: setup-bun
         name: Setup Bun
         uses: oven-sh/setup-bun@v1
