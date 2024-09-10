@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - id: setup-bun
+        name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: "lts/*"
-      - run: npm install
-      - run: npm run build
-      - run: npm ci
-      - run: npm audit signatures
+          bun-version: latest
+      - run: bun install
+      - run: bun run build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
